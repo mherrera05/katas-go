@@ -1,0 +1,14 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: install
+  image: golang:1.22.4
+  commands:
+  - go mod download
+
+- name: test
+  image: golang:1.22.4
+  commands:
+  - go test -cover -v ./...
