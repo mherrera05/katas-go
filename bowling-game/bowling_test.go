@@ -13,3 +13,11 @@ func TestCreateABowlingType(test *testing.T) {
 
 	assert.Equal(test, true, ok)
 }
+
+func TestShouldMakeARoll(test *testing.T) {
+	game := new(Bowling)
+
+	game.roll(5)
+
+	assert.Equal(test, 1, len(game.rolls))
+}
