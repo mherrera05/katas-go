@@ -21,3 +21,13 @@ func TestShouldMakeARoll(test *testing.T) {
 
 	assert.Equal(test, 1, len(game.rolls))
 }
+
+func TestShouldScore0WhenItFailsAllTheThrows(test *testing.T) {
+	game := new(Bowling)
+
+	for i := 0; i < 20; i++ {
+		game.roll(0)
+	}
+
+	assert.Equal(test, 0, game.score())
+}
