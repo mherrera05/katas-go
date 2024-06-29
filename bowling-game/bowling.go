@@ -19,12 +19,20 @@ func (game *Bowling) score() int {
 }
 
 func (game *Bowling) calculateScore(total int, frame int) (int, int) {
-	if game.rolls[frame]+game.rolls[frame+1] == MAX_PINS_PER_FRAME {
-		total += MAX_PINS_PER_FRAME + game.rolls[frame+2]
+	if game.isSpare(frame) {
+		total += MAX_PINS_PER_FRAME + game.spareBonus(frame)
 		frame += 2
 		return total, frame
 	}
 	total += game.rolls[frame] + game.rolls[frame+1]
 	frame++
 	return total, frame
+}
+
+func (game *Bowling) isSpare(frame int) bool {
+	return game.rolls[frame]+game.rolls[frame+1] == MAX_PINS_PER_FRAME
+}
+
+func (game *Bowling) spareBonus(frame int) int {
+	return game.rolls[frame+2]
 }
