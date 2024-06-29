@@ -5,8 +5,10 @@ import (
 	"testing"
 )
 
+var game *Bowling
+
 func TestCreateABowlingType(test *testing.T) {
-	game := new(Bowling)
+	game = new(Bowling)
 
 	var typeof interface{} = game
 	_, ok := typeof.(*Bowling)
@@ -15,7 +17,7 @@ func TestCreateABowlingType(test *testing.T) {
 }
 
 func TestShouldMakeARoll(test *testing.T) {
-	game := new(Bowling)
+	game = new(Bowling)
 
 	game.roll(5)
 
@@ -23,21 +25,23 @@ func TestShouldMakeARoll(test *testing.T) {
 }
 
 func TestShouldScore0WhenItFailsAllTheThrows(test *testing.T) {
-	game := new(Bowling)
+	game = new(Bowling)
 
-	for i := 0; i < 20; i++ {
-		game.roll(0)
-	}
+	makeRolls(20, 0)
 
 	assert.Equal(test, 0, game.score())
 }
 
 func TestShouldScore20whenItKnockDown1PerThrow(test *testing.T) {
-	game := new(Bowling)
+	game = new(Bowling)
 
-	for i := 0; i < 20; i++ {
-		game.roll(1)
-	}
+	makeRolls(20, 1)
 
 	assert.Equal(test, 20, game.score())
+}
+
+func makeRolls(times int, pins int) {
+	for i := 0; i < times; i++ {
+		game.roll(pins)
+	}
 }
