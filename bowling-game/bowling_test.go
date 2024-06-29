@@ -31,3 +31,13 @@ func TestShouldScore0WhenItFailsAllTheThrows(test *testing.T) {
 
 	assert.Equal(test, 0, game.score())
 }
+
+func TestShouldScore20whenItKnockDown1PerThrow(test *testing.T) {
+	game := new(Bowling)
+
+	for i := 0; i < 20; i++ {
+		game.roll(1)
+	}
+
+	assert.Equal(test, 20, game.score())
+}
