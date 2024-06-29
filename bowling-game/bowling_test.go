@@ -40,6 +40,17 @@ func TestShouldScore20whenItKnockDown1PerThrow(test *testing.T) {
 	assert.Equal(test, 20, game.score())
 }
 
+func TestShouldScore20whenItMakesASpareAndGetAnExtraBall(test *testing.T) {
+	game = new(Bowling)
+
+	game.roll(5)
+	game.roll(5)
+	game.roll(5)
+	makeRolls(17, 0)
+
+	assert.Equal(test, 20, game.score())
+}
+
 func makeRolls(times int, pins int) {
 	for i := 0; i < times; i++ {
 		game.roll(pins)
