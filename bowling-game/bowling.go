@@ -1,6 +1,6 @@
 package bowling_game
 
-const MAX_PINS_PER_FRAME int = 10
+const MAX_PINS_PER_FRAME, TOTAL_FRAMES int = 10, 10
 
 type Bowling struct {
 	rolls []int
@@ -11,28 +11,24 @@ func (game *Bowling) roll(pins int) {
 }
 
 func (game *Bowling) score() int {
-	var score int = 0
-	for frame := 0; frame < 10; {
-		score, frame = game.calculateScore(score, frame)
+	var total, frame, indexRoll int = 0, 0, 0
+	for frame < TOTAL_FRAMES {
+		if game.isSpare(indexRoll) {
+			total += MAX_PINS_PER_FRAME + game.spareBonus(indexRoll)
+			indexRoll += 2
+		} else {
+			total += game.rolls[indexRoll] + game.rolls[indexRoll+1]
+			indexRoll += 2
+		}
+		frame++
 	}
-	return score
+	return total
 }
 
-func (game *Bowling) calculateScore(total int, frame int) (int, int) {
-	if game.isSpare(frame) {
-		total += MAX_PINS_PER_FRAME + game.spareBonus(frame)
-		frame += 2
-		return total, frame
-	}
-	total += game.rolls[frame] + game.rolls[frame+1]
-	frame++
-	return total, frame
+func (game *Bowling) isSpare(indexRoll int) bool {
+	return game.rolls[indexRoll]+game.rolls[indexRoll+1] == MAX_PINS_PER_FRAME
 }
 
-func (game *Bowling) isSpare(frame int) bool {
-	return game.rolls[frame]+game.rolls[frame+1] == MAX_PINS_PER_FRAME
-}
-
-func (game *Bowling) spareBonus(frame int) int {
-	return game.rolls[frame+2]
+func (game *Bowling) spareBonus(indexRoll int) int {
+	return game.rolls[indexRoll+2]
 }
