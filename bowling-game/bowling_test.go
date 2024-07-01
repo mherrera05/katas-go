@@ -32,7 +32,7 @@ func TestShouldScore0WhenItFailsAllTheThrows(test *testing.T) {
 	assert.Equal(test, 0, game.score())
 }
 
-func TestShouldScore20whenItKnockDown1PerThrow(test *testing.T) {
+func TestShouldScore20WhenItKnockDown1PerThrow(test *testing.T) {
 	game = new(Bowling)
 
 	makeRolls(20, 1)
@@ -40,7 +40,7 @@ func TestShouldScore20whenItKnockDown1PerThrow(test *testing.T) {
 	assert.Equal(test, 20, game.score())
 }
 
-func TestShouldScore20whenItMakesASpareAndGetAnExtraBall(test *testing.T) {
+func TestShouldScore20WhenItMakesASpareAndGetAnExtraBall(test *testing.T) {
 	game = new(Bowling)
 
 	game.roll(5)
@@ -51,7 +51,7 @@ func TestShouldScore20whenItMakesASpareAndGetAnExtraBall(test *testing.T) {
 	assert.Equal(test, 20, game.score())
 }
 
-func TestShouldScore20whenItMakesAStrikeAndGetAnExtraBall(test *testing.T) {
+func TestShouldScore20WhenItMakesAStrikeAndGetAnExtraBall(test *testing.T) {
 	game = new(Bowling)
 
 	game.roll(10)
@@ -60,6 +60,23 @@ func TestShouldScore20whenItMakesAStrikeAndGetAnExtraBall(test *testing.T) {
 	makeRolls(17, 0)
 
 	assert.Equal(test, 20, game.score())
+}
+
+func TestShouldScore300whenItIsAPerfectGame(test *testing.T) {
+	game = new(Bowling)
+
+	makeRolls(12, 10)
+
+	assert.Equal(test, 300, game.score())
+}
+
+func TestShouldScore155whenAllTheThrowAreSpare(test *testing.T) {
+	game = new(Bowling)
+
+	makeRolls(20, 5)
+	game.roll(10)
+
+	assert.Equal(test, 155, game.score())
 }
 
 func makeRolls(times int, pins int) {

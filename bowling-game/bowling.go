@@ -1,6 +1,8 @@
 package bowling_game
 
-const MAX_PINS_PER_FRAME, TOTAL_FRAMES int = 10, 10
+const (
+	MAX_PINS_PER_FRAME, TOTAL_FRAMES int = 10, 10
+)
 
 type Bowling struct {
 	rolls []int
