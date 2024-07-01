@@ -16,10 +16,10 @@ func (game *Bowling) score() int {
 		if game.isSpare(indexRoll) {
 			total += MAX_PINS_PER_FRAME + game.spareBonus(indexRoll)
 			indexRoll += 2
-		} else if game.rolls[indexRoll] == MAX_PINS_PER_FRAME {
-			total += MAX_PINS_PER_FRAME + game.rolls[indexRoll + 1] + game.rolls[indexRoll + 2]
+		} else if game.isStrike(indexRoll) {
+			total += MAX_PINS_PER_FRAME + game.strikeBonus(indexRoll)
 			indexRoll += 1
-		}  else {
+		} else {
 			total += game.rolls[indexRoll] + game.rolls[indexRoll+1]
 			indexRoll += 2
 		}
@@ -34,4 +34,12 @@ func (game *Bowling) isSpare(indexRoll int) bool {
 
 func (game *Bowling) spareBonus(indexRoll int) int {
 	return game.rolls[indexRoll+2]
+}
+
+func (game *Bowling) isStrike(indexRoll int) bool {
+	return game.rolls[indexRoll] == MAX_PINS_PER_FRAME
+}
+
+func (game *Bowling) strikeBonus(indexRoll int) int {
+	return game.rolls[indexRoll+1] + game.rolls[indexRoll+2]
 }
