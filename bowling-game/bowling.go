@@ -8,26 +8,32 @@ type Bowling struct {
 	rolls []int
 }
 
-func (game *Bowling) roll(pins int) {
+type score struct {
+	total int
+	index int
+}
+
+func (game *Bowling) Roll(pins int) {
 	game.rolls = append(game.rolls, pins)
 }
 
-func (game *Bowling) score() int {
-	var total, frame, indexRoll int = 0, 0, 0
+func (game *Bowling) Score() int {
+	var frame = 0
+	var score score = score{total: 0, index:0}
 	for frame < TOTAL_FRAMES {
-		if game.isSpare(indexRoll) {
-			total += MAX_PINS_PER_FRAME + game.spareBonus(indexRoll)
-			indexRoll += 2
-		} else if game.isStrike(indexRoll) {
-			total += MAX_PINS_PER_FRAME + game.strikeBonus(indexRoll)
-			indexRoll += 1
+		if game.isSpare(score.index) {
+			score.total += MAX_PINS_PER_FRAME + game.spareBonus(score.index)
+			score.index += 2
+		} else if game.isStrike(score.index) {
+			score.total += MAX_PINS_PER_FRAME + game.strikeBonus(score.index)
+			score.index += 1
 		} else {
-			total += game.rolls[indexRoll] + game.rolls[indexRoll+1]
-			indexRoll += 2
+			score.total += game.rolls[score.index] + game.rolls[score.index+1]
+			score.index += 2
 		}
 		frame++
 	}
-	return total
+	return score.total
 }
 
 func (game *Bowling) isSpare(indexRoll int) bool {
