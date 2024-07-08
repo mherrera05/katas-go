@@ -1,4 +1,5 @@
 ## Katas with GO
+[![Build Status](https://drone-ci.softlutions.cl/api/badges/mherrera05/katas-go/status.svg)](https://drone-ci.softlutions.cl/mherrera05/katas-go)
 
 #### Requirements
 - Go `1.22`
